@@ -1,0 +1,56 @@
+.word-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: rgba(0,0,0,0.5);
+  transition: 0.2s ease-out;
+}
+
+  .word-container:hover {
+    color: rgba(0,0,0,0.85);
+    transform: scale(1.25);
+  }
+
+.word-popover-menu {
+  padding: 50;
+}
+
+.child-button-container {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  z-index: -1;
+  opacity: 0;
+  transition: 0.2s ease-out;
+  transform: scale(0.5);
+  visibility: hidden;
+}
+
+  .child-button {
+    padding: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: white;
+    margin: 2.5px;
+    border-radius: 2.5px;
+  }
+
+.coref-button-container {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  z-index: -1;
+  opacity: 0;
+  transition: 0.2s ease-out;
+  visibility: hidden;
+}
+
+  .coref-button {
+    background: white;
+    border-radius: 5px;
+    border-style: none;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
