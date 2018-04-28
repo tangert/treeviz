@@ -78,7 +78,7 @@ class Word extends Component {
 
   containerStyles = () => {
     let style = {};
-    let { positionData, focused, container } = this.props;
+    let { positionData, focused, container, expanded } = this.props;
 
     if (focused) {
       style.position = "absolute"
@@ -88,6 +88,10 @@ class Word extends Component {
       style.borderStyle = "solid";
       style.borderRadius = 5;
       style.boxShadow = "0px 0px 70px 0px rgba(0,0,0,0.15)";
+    }
+
+    if (expanded) {
+      style.zIndex = 9999;
     }
 
     return style;

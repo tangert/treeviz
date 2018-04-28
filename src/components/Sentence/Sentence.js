@@ -13,6 +13,7 @@ class Sentence extends Component {
     this.state = {
       mounted: false,
       focused: false,
+      expanded: false,
       rect: {},
       treeLayout: {},
       expandedTree: {},
@@ -46,7 +47,7 @@ class Sentence extends Component {
       treeLayout: treeLayout,
       root: root,
       nodes: descendants,
-      // links: links,
+      // links: links, s
       // diagonal: diagonal
     });
   }
@@ -104,8 +105,11 @@ class Sentence extends Component {
 // Generates the main styles for the sentence container
   mainStyles = () => {
     let { sizeData, depthOn } = this.props;
-    let { focused } = this.state;
+    let { focused, expanded } = this.state;
+
     let style = {}
+    style.backgroundColor = "white";
+
 
     if(depthOn) {
       style.transform =  "scale(" + sizeData + ")";
@@ -116,20 +120,35 @@ class Sentence extends Component {
       style.height = this.state.rect.height*8 + "px";
       style.marginTop = 30
       style.marginBottom = 50
-      style.backgroundColor = "white"
       style.border = "none"
+    }
+
+    if(expanded) {
+      style.transform = "scale(1.5)"
+      style.zIndex = 999;
+      style.boxShadow = "0px 0px 70px 0px rgba(0,0,0,0.25)";
+
+      //implement with more redux attention
+      // style.position = "absolute"
+
     }
 
     return style;
   }
 
 // Handles the expansion of the tree
+  handleExpand = () => {
+    let { expanded } = this.state;
+      this.setState({
+        expanded: !expanded,
+      });
+  }
+
   handleFocus = () => {
     let { focused } = this.state;
       this.setState({
         focused: !focused,
-      });
-  }
+      });  }
 
 // Renders the links for the word nodes
   renderLinks = () => {
@@ -152,13 +171,17 @@ class Sentence extends Component {
         return (
           <Word
             container = {this.state.rect}
+
             word = {node.data.name}
-            key = {"word" + node.data.name + i}
             positionData = {{"x": node.x, "y": node.y}}
-            offset = {5}
             POS = {POS_TAGS.random()}
             LEMMA = {LEMMA_TAGS.random()}
+
+            key = {"word" + node.data.name + i}
+            offset = {5}
+
             focused = {this.state.focused}
+            expanded = {this.state.expanded}
             />
         )
       }));
@@ -176,14 +199,30 @@ class Sentence extends Component {
 
         { this.renderWords() }
 
-        <Button
+        <div
           className = "sentence-focus-button"
-          icon = "layout-hierarchy"
-          onClick = {this.handleFocus}
-          active = {this.state.focused}
-          color = {this.state.focused ? 'green' : console.log("woah")}
-          >
-        </Button>
+          style = {{
+            display: "flex",
+            flexDirection: "horizontal",
+            justifyContent: "space-between"
+          }}>
+
+          <Button
+            icon = "layout-hierarchy"
+            onClick = {this.handleFocus}
+            active = {this.state.focused}
+            >
+          </Button>
+
+          <Button
+            style = {{marginLeft: 5}}
+            icon = "maximize"
+            onClick = {this.handleExpand}
+            active = {this.state.expanded}
+            >
+          </Button>
+
+        </div>
 
       </div>
 

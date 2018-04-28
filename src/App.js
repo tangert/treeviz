@@ -18,6 +18,10 @@ class App extends Component {
       sentences: [
         "I would love to go see a movie with you!",
         "After, would you want to hang out?",
+        "We could get some ice cream or something.",
+        "We could get some ice cream or something.",
+        "We could get some ice cream or something.",
+        "We could get some ice cream or something.",
         "We could get some ice cream or something."
       ],
       depthOn: false
