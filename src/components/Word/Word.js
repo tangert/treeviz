@@ -25,9 +25,7 @@ class Word extends Component {
 
   //FIXME: need a way to check the last/current state of the window to adjust DOM node
   componentDidMount() {
-
     let rect = this.mainButton.getBoundingClientRect();
-
     this.setState({
       rect: rect,
     });
