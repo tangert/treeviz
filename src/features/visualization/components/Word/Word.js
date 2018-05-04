@@ -6,19 +6,8 @@ import './Word.css';
 class Word extends Component {
   constructor(props){
     super(props)
-
     this.state = {
       isOpen: false,
-      childButtonData: [
-        {
-          content: "POS",
-          color: "coral"
-        },
-        {
-          content: "NER",
-          color: "lightblue"
-        },
-      ],
       rect: {},
     }
   }
@@ -29,10 +18,14 @@ class Word extends Component {
     this.setState({
       rect: rect,
     });
-
   }
 
   stringToColor = (str) => {
+    if(str === undefined) {
+      //this happens when you have some weird string cases
+      return "black"
+    }
+    console.log(str)
     var hash = 0;
     for (var i = 0; i < str.length; i++) {
       hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -171,16 +164,16 @@ class Word extends Component {
             text={"POS: "}
             style = {this.menuItemStyles()}
             labelElement = {
-              <Tag content = {this.props.POS}
-                   color = {this.stringToColor(this.props.POS)}
+              <Tag content = {this.props.pos}
+                   color = {this.stringToColor(this.props.pos)}
               />
             }
           />
           <MenuItem
-            text={"LEMMA: "}
+            text={"Lemma: "}
             style = {this.menuItemStyles()}
             labelElement = {
-              <Tag content = {this.props.LEMMA}
+              <Tag content = {this.props.lem}
                    color = {"rgba(0,0,0,0.25)"}
               />
             }

@@ -3,7 +3,6 @@ import Word from './../Word/Word'
 import { tree, hierarchy } from 'd3-hierarchy';
 import { linkVertical, svg } from 'd3';
 import { Button, Position, PopoverInteractionKind, Intent } from "@blueprintjs/core";
-import { POS_TAGS, LEMMA_TAGS } from './../../utils.js';
 import './Sentence.css';
 
 class Sentence extends Component {
@@ -22,6 +21,8 @@ class Sentence extends Component {
       links: {},
       diagonal: {},
     };
+
+    console.log(this.props)
   }
 
 // FIXME: make the height of the sentence when foxued a function of
@@ -32,7 +33,7 @@ class Sentence extends Component {
     let focusedHeight = rect.height*8
 
     let treeLayout = tree().size([rect.width, focusedHeight]);
-    let expandedTree = this.genExpandedTree(this.props.sentence.split(" "));
+    let expandedTree = this.genExpandedTree(this.props.tokens);
     let root = treeLayout(hierarchy(expandedTree));
 
     // let diagonal = svg.diagonal().projection((d) => [d.x, d.y]);
@@ -54,6 +55,8 @@ class Sentence extends Component {
 
 // Generates a fake expanded tree
   genExpandedTree = (data) => {
+
+    console.log(data)
 
     //Base case: one or two children left
     if (data.length < 3) {
@@ -141,14 +144,17 @@ class Sentence extends Component {
     let { expanded } = this.state;
       this.setState({
         expanded: !expanded,
-      });
+    });
+    this.props.expandTree();
   }
 
   handleFocus = () => {
     let { focused } = this.state;
       this.setState({
         focused: !focused,
-      });  }
+      });
+    this.props.focusSentence();
+  }
 
 // Renders the links for the word nodes
   renderLinks = () => {
@@ -166,7 +172,9 @@ class Sentence extends Component {
 // Renders all of the word content for each sentence
 // Maps the data from the d3 nodes
   renderWords = () => {
+
     if(this.state.mounted) {
+
       var words = (this.state.nodes.map( (node, i) => {
         return (
           <Word
@@ -174,8 +182,9 @@ class Sentence extends Component {
 
             word = {node.data.name}
             positionData = {{"x": node.x, "y": node.y}}
-            POS = {POS_TAGS.random()}
-            LEMMA = {LEMMA_TAGS.random()}
+
+            pos = {this.props.pos[i]}
+            lem = {this.props.lem[i]}
 
             key = {"word" + node.data.name + i}
             offset = {5}
@@ -183,10 +192,13 @@ class Sentence extends Component {
             focused = {this.state.focused}
             expanded = {this.state.expanded}
             />
+
         )
       }));
+
       return words;
     }
+
   }
 
   render() {

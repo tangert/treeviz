@@ -1,10 +1,9 @@
-.App {
+.VisualizationContainer {
   text-align: center;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
-  padding-top: 200px;
   padding: 25%;
 }
