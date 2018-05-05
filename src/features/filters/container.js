@@ -1,21 +1,45 @@
 import React, { Component } from 'react'
-import { Filter } from './components/filter/filter'
+import Filter from './components/filter/filter'
+import './container.css'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from './Actions'
 
 class FiltersContainer extends Component {
-  render () {
+
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+
     // Coming from app state, need to pass in the data to get all of the relevant POS tags
     // from the data
     // need to grab the unique set of all the different POS's
     // from the currently visible sentenceFocused
 
-    return(
+    return (
       <div className = "filters-container">
-        <Filter/>
+        <Filter purpose = "NER"
+                active = {this.props.nerOn}
+                data = {this.props.colorData.ner}
+                selectedData = {this.props.selectedNer}
+
+                filterGlobal = {this.props.actions.filterNER}
+                selectTag = {this.props.actions.selectNER}
+                />
+
+        <Filter purpose = "POS"
+                active = {this.props.posOn}
+                data = {this.props.colorData.pos}
+                selectedData = {this.props.selectedPos}
+
+                filterGlobal = {this.props.actions.filterPOS}
+                selectTag = {this.props.actions.selectPOS}
+                />
       </div>
+
     );
   }
 }
@@ -29,9 +53,10 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state){
   return {
-    treeExpanded: state.Visualization.treeExpanded,
-    sentenceFocused: state.Visualization.sentenceFocused,
-    scrollDirection: state.Visualization.scrollDirection,
+    posOn : state.Filters.posOn,
+    nerOn: state.Filters.nerOn,
+    selectedPos: state.Filters.selectedPos,
+    selectedNer: state.Filters.selectedNer
   };
 }
 

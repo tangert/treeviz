@@ -21,7 +21,6 @@ class Sentence extends Component {
       links: {},
       diagonal: {},
     };
-
     console.log(this.props)
   }
 
@@ -55,9 +54,6 @@ class Sentence extends Component {
 
 // Generates a fake expanded tree
   genExpandedTree = (data) => {
-
-    console.log(data)
-
     //Base case: one or two children left
     if (data.length < 3) {
 
@@ -127,7 +123,7 @@ class Sentence extends Component {
     }
 
     if(expanded) {
-      style.transform = "scale(1.5)"
+      style.transform = "scale(1.2)"
       style.zIndex = 999;
       style.boxShadow = "0px 0px 70px 0px rgba(0,0,0,0.25)";
 
@@ -179,12 +175,15 @@ class Sentence extends Component {
         return (
           <Word
             container = {this.state.rect}
+            selectedPos = {this.props.selectedPos}
 
             word = {node.data.name}
             positionData = {{"x": node.x, "y": node.y}}
+            colorData = {this.props.colorData}
 
             pos = {this.props.pos[i]}
             lem = {this.props.lem[i]}
+
 
             key = {"word" + node.data.name + i}
             offset = {5}
@@ -209,7 +208,9 @@ class Sentence extends Component {
         ref={(el) => this.sentenceNode = el}
         >
 
-        { this.renderWords() }
+        <div className = "words-container">
+          { this.renderWords() }
+        </div>
 
         <div
           className = "sentence-focus-button"

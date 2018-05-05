@@ -20,28 +20,10 @@ class Word extends Component {
     });
   }
 
-  stringToColor = (str) => {
-    if(str === undefined) {
-      //this happens when you have some weird string cases
-      return "black"
-    }
-    console.log(str)
-    var hash = 0;
-    for (var i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    var colour = '#';
-    for (var i = 0; i < 3; i++) {
-      var value = (hash >> (i * 8)) & 0xFF;
-      colour += ('00' + value.toString(16)).substr(-2);
-    }
-    return colour;
-  }
-
   //CSS functions
   mainStyles = (isOpen) => {
 
-    let { positionData, focused, container } = this.props;
+    let { pos, colorData, positionData, focused, container, selectedPos } = this.props;
 
     let style = {
       padding: 5,
@@ -64,6 +46,11 @@ class Word extends Component {
       style.borderColor = "rgba(0,0,0,0.2)"
       style.borderStyle = "solid"
       style.zIndex = 999
+    }
+
+    if (selectedPos.includes(pos)) {
+      style.backgroundColor = colorData.pos[pos]
+      style.color = "white"
     }
 
     return style;
@@ -156,6 +143,8 @@ class Word extends Component {
 
   render(){
 
+    let { pos, lem, colorData } = this.props
+
     const menu = (
       <Menu
         className = "word-popover-menu"
@@ -164,8 +153,8 @@ class Word extends Component {
             text={"POS: "}
             style = {this.menuItemStyles()}
             labelElement = {
-              <Tag content = {this.props.pos}
-                   color = {this.stringToColor(this.props.pos)}
+              <Tag content = {pos}
+                   color = {colorData.pos[pos]}
               />
             }
           />
@@ -173,13 +162,11 @@ class Word extends Component {
             text={"Lemma: "}
             style = {this.menuItemStyles()}
             labelElement = {
-              <Tag content = {this.props.lem}
+              <Tag content = {lem}
                    color = {"rgba(0,0,0,0.25)"}
               />
             }
           />
-
-          <MenuDivider />
 
           <Button
             style = {{width: "100%"}}

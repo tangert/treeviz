@@ -1,11 +1,7 @@
 .sentence-container {
-  
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-
-  align-content: center;
-  justify-content: center;
+  align-content: space-around;
 
   transition: 0.3s ease-out;
   padding: 15px;
@@ -16,7 +12,6 @@
   border-color: rgba(0,0,0,0.15);
   border-width: 1px;
   border-style: solid;
-
 }
 
   .sentence-container:hover {
@@ -25,10 +20,14 @@
     box-shadow: 0px 0px 70px 0px rgba(0,0,0,0.1);
   }
 
+.words-container {
+  width: 100%;
+}
+
 .sentence-focus-button {
-  position: absolute;
+  display: flex;
+  align-self: flex-start;
   top: 10px;
   right: 10px;
   transition: 0.2s ease-out;
-
 }
