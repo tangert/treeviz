@@ -10,9 +10,13 @@ class Sentence extends Component {
   constructor(props){
     super(props)
     this.state = {
+
+      //internal variables
       mounted: false,
       focused: false,
       expanded: false,
+
+      // d3 stuff
       rect: {},
       treeLayout: {},
       expandedTree: {},
@@ -21,7 +25,6 @@ class Sentence extends Component {
       links: {},
       diagonal: {},
     };
-    console.log(this.props)
   }
 
 // FIXME: make the height of the sentence when foxued a function of
@@ -126,9 +129,6 @@ class Sentence extends Component {
       style.transform = "scale(1.2)"
       style.zIndex = 999;
       style.boxShadow = "0px 0px 70px 0px rgba(0,0,0,0.25)";
-
-      //implement with more redux attention
-      // style.position = "absolute"
 
     }
 

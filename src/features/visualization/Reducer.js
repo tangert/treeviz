@@ -16,13 +16,9 @@ const initialState = {
 export default function Visualization(state = initialState, action) {
   switch(action.type) {
     case EXPAND_TREE:
-      return { ...state, treeExpanded: true }
-    case RETRACT_TREE:
-      return { ...state, treeExpanded: false }
+      return { ...state, treeExpanded: !state.treeExpanded }
     case FOCUS_SENTENCE:
-      return { ...state, sentenceFocused: true }
-    case UNFOCUS_SENTENCE:
-      return { ...state, sentenceFocused: false }
+      return { ...state, sentenceFocused: !state.sentenceFocused }
     case SCROLL_UP:
       return { ...state, scrollDirection: "up" }
     case SCROLL_DOWN:

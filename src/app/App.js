@@ -24,10 +24,6 @@ import "normalize.css/normalize.css";
   ]
 */
 
-/*
-
-*/
-
 class App extends Component {
 
   stringToColor = (str) => {
@@ -95,20 +91,19 @@ class App extends Component {
       dataDict.ner[tag] = col
     });
 
-    // Export the pos and ner sets with their relevant colors
-    console.log(dataDict)
-
     return dataDict
   }
 
   render() {
     return (
       <div className = "app">
+
         <VisualizationContainer colorData = {this.parseData(SAMPLE_DATA.output)}
                                 data = {SAMPLE_DATA.output} />
 
         <FiltersContainer colorData = {this.parseData(SAMPLE_DATA.output)}/>
-      </div>
+
+    </div>
     );
   }
 }

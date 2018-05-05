@@ -7,18 +7,7 @@ import { connect } from 'react-redux'
 import * as Actions from './Actions'
 
 class FiltersContainer extends Component {
-
-  constructor(props) {
-    super(props)
-  }
-
   render() {
-
-    // Coming from app state, need to pass in the data to get all of the relevant POS tags
-    // from the data
-    // need to grab the unique set of all the different POS's
-    // from the currently visible sentenceFocused
-
     return (
       <div className = "filters-container">
         <Filter purpose = "NER"
@@ -39,7 +28,6 @@ class FiltersContainer extends Component {
                 selectTag = {this.props.actions.selectPOS}
                 />
       </div>
-
     );
   }
 }

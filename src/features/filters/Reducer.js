@@ -12,6 +12,11 @@ const initialState = {
   selectedNer: []
 }
 
+// TODO: Add this to the filter pos / ner global actions to turn on everything in the array 
+function addAll(data, targetArray) {
+
+}
+
 export default function Filters(state = initialState, action) {
 
   switch(action.type) {
