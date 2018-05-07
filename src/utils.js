@@ -1,3 +1,24 @@
+// MARK: Utility functions
+export function stringToColor(str) {
+  // Produces a unique color for any given input string
+
+  if(str === undefined) {
+    //this happens when you have some weird string cases
+    return "black"
+  }
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  var colour = '#';
+  for (var i = 0; i < 3; i++) {
+    var value = (hash >> (i * 8)) & 0xFF;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+}
+
+
 // MARK: Prototype extensions
 Array.prototype.random = function () {
   return this[Math.floor((Math.random()*this.length))];

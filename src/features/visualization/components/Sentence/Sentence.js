@@ -106,7 +106,7 @@ class Sentence extends Component {
 
 // Generates the main styles for the sentence container
   mainStyles = () => {
-    let { sizeData, depthOn } = this.props;
+    let { sizeData, depthOn, isFirst } = this.props;
     let { focused, expanded } = this.state;
 
     let style = {}
@@ -129,7 +129,10 @@ class Sentence extends Component {
       style.transform = "scale(1.2)"
       style.zIndex = 999;
       style.boxShadow = "0px 0px 70px 0px rgba(0,0,0,0.25)";
+    }
 
+    if(isFirst) {
+      style.marginTop = 0
     }
 
     return style;
@@ -165,8 +168,8 @@ class Sentence extends Component {
     )
   }
 
-// Renders all of the word content for each sentence
-// Maps the data from the d3 nodes
+  // Renders all of the word content for each sentence
+  // Maps the data from the d3 nodes
   renderWords = () => {
 
     if(this.state.mounted) {
@@ -176,6 +179,7 @@ class Sentence extends Component {
           <Word
             container = {this.state.rect}
             selectedPos = {this.props.selectedPos}
+            selectedNer = {this.props.selectedNer}
 
             word = {node.data.name}
             positionData = {{"x": node.x, "y": node.y}}
@@ -183,7 +187,7 @@ class Sentence extends Component {
 
             pos = {this.props.pos[i]}
             lem = {this.props.lem[i]}
-
+            ner = {this.props.ner[i]}
 
             key = {"word" + node.data.name + i}
             offset = {5}
@@ -201,6 +205,19 @@ class Sentence extends Component {
   }
 
   render() {
+
+    /*
+    Maybe: Expand button
+
+    <Button
+      style = {{marginLeft: 5}}
+      icon = "maximize"
+      onClick = {this.handleExpand}
+      active = {this.state.expanded}
+      >
+    </Button>
+    */
+
     return (
       <div
         className="sentence-container"
@@ -224,14 +241,6 @@ class Sentence extends Component {
             icon = "layout-hierarchy"
             onClick = {this.handleFocus}
             active = {this.state.focused}
-            >
-          </Button>
-
-          <Button
-            style = {{marginLeft: 5}}
-            icon = "maximize"
-            onClick = {this.handleExpand}
-            active = {this.state.expanded}
             >
           </Button>
 

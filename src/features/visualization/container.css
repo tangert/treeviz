@@ -1,11 +1,9 @@
-.VisualizationContainer {
-  text-align: center;
+.visualization-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
+
   justify-content: center;
   align-content: center;
-
-  max-width: 900px;
-  min-width: 700px;
+  /* background-color: red; */
 }

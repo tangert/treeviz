@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import InputContainer from './../features/input/container'
 import VisualizationContainer from './../features/visualization/container'
 import FiltersContainer from './../features/filters/container'
 
 import './App.css';
-import { SAMPLE_DATA } from './../utils.js'
+import { SAMPLE_DATA, stringToColor} from './../utils.js'
 
 // Blueprint.js CSS modules
 import "@blueprintjs/core/lib/css/blueprint.css";
@@ -25,24 +26,6 @@ import "normalize.css/normalize.css";
 */
 
 class App extends Component {
-
-  stringToColor = (str) => {
-
-    if(str === undefined) {
-      //this happens when you have some weird string cases
-      return "black"
-    }
-    var hash = 0;
-    for (var i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    var colour = '#';
-    for (var i = 0; i < 3; i++) {
-      var value = (hash >> (i * 8)) & 0xFF;
-      colour += ('00' + value.toString(16)).substr(-2);
-    }
-    return colour;
-  }
 
   parseData = (data) => {
     // Eventually write to only parse this for
@@ -82,12 +65,12 @@ class App extends Component {
     // calculate their color, then store it as a tuple for each
 
     pos.forEach( tag => {
-      let col = this.stringToColor(tag)
+      let col = stringToColor(tag)
       dataDict.pos[tag] = col
     });
 
     ner.forEach ( tag => {
-      let col = this.stringToColor(tag)
+      let col = stringToColor(tag)
       dataDict.ner[tag] = col
     });
 
@@ -95,14 +78,24 @@ class App extends Component {
   }
 
   render() {
+
+    /*
+      // Start off with sample data, then connect the app to the store and
+      // Pass down the analyzed text from the input!
+    */
+
     return (
       <div className = "app">
 
-        <VisualizationContainer colorData = {this.parseData(SAMPLE_DATA.output)}
-                                data = {SAMPLE_DATA.output} />
+        <InputContainer/>
 
-        <FiltersContainer colorData = {this.parseData(SAMPLE_DATA.output)}/>
+        <div className = "content-container">
+          <VisualizationContainer colorData = {this.parseData(SAMPLE_DATA.output)}
+                                  data = {SAMPLE_DATA.output} />
 
+          <FiltersContainer colorData = {this.parseData(SAMPLE_DATA.output)}/>
+
+        </div>
     </div>
     );
   }

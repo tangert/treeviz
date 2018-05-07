@@ -1,9 +1,13 @@
 .app {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-content: center;
   justify-content: center;
-  padding: 100px;
+}
 
-  /* background-color: green; */
+.content-container {
+  display: flex;
+  flex-direction: row;  
+  padding-left: 10%;
+  padding-right: 10%;
 }

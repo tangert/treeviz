@@ -3,6 +3,15 @@ import { Button, Menu, Icon, Intent, MenuItem, MenuDivider, Popover, Position, P
 import Tag from './Tag/Tag';
 import './Word.css';
 
+// TODO:
+  /*
+  Need to restrucutre component to handle "POS" and "NER" focus so that you can pass in different sized chunks?
+  Or, keep each word it's own component/div and then highlight and focus differnet NER
+
+  - Draw links between NER's ???? just a simple line in between the divs
+  - Use library: react-line-to
+*/
+
 class Word extends Component {
   constructor(props){
     super(props)
@@ -23,7 +32,7 @@ class Word extends Component {
   //CSS functions
   mainStyles = (isOpen) => {
 
-    let { pos, colorData, positionData, focused, container, selectedPos } = this.props;
+    let { pos, ner, colorData, positionData, focused, container, selectedPos, selectedNer } = this.props;
 
     let style = {
       padding: 5,
@@ -50,6 +59,11 @@ class Word extends Component {
 
     if (selectedPos.includes(pos)) {
       style.backgroundColor = colorData.pos[pos]
+      style.color = "white"
+    }
+
+    if (selectedNer.includes(ner)) {
+      style.backgroundColor = colorData.ner[ner]
       style.color = "white"
     }
 
@@ -143,7 +157,7 @@ class Word extends Component {
 
   render(){
 
-    let { pos, lem, colorData } = this.props
+    let { pos, lem, ner, colorData } = this.props
 
     const menu = (
       <Menu
@@ -158,6 +172,22 @@ class Word extends Component {
               />
             }
           />
+
+        {
+          ner !== undefined ?
+          <MenuItem
+            text={"NER: "}
+            style = {this.menuItemStyles()}
+            labelElement = {
+              <Tag content = {ner}
+                   color = {colorData.ner[ner]}
+              />
+            }
+          />
+          :
+          console.log("No NER data")
+        }
+
           <MenuItem
             text={"Lemma: "}
             style = {this.menuItemStyles()}
